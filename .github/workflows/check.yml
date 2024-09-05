@@ -1,0 +1,42 @@
+name: Check
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: denoland/setup-deno@v1
+
+      - name: Deno cache (restore)
+        id: cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            ~/.deno
+          key: deno-cache
+
+      - name: Lint
+        if: ${{ !cancelled() }}
+        run: deno lint
+
+      - name: Format check
+        if: ${{ !cancelled() }}
+        run: deno fmt --check
+
+      - name: Type check
+        if: ${{ !cancelled() }}
+        run: deno check
+
+      - name: Deno cache (save)
+        if: ${{ !cancelled() }}
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ~/.deno
+          key: deno-cache
