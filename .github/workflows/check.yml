@@ -31,7 +31,7 @@ jobs:
 
       - name: Type check
         if: ${{ !cancelled() }}
-        run: deno check
+        run: deno check ./src/main.ts
 
       - name: Deno cache (save)
         if: ${{ !cancelled() }}
