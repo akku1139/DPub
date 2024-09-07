@@ -1,11 +1,9 @@
-import { InitOptions } from "./types.ts"
+import type { InitOptions } from "./types.ts"
 import { Hono } from "hono"
-import { jsxRenderer } from "hono/jsx-renderer"
 
 const dpub = (config: InitOptions) => {
-  const app = new Hono()
-
-  app.get("/.well-known/nodeinfo", (c) => {
+  const dpubRoute = new Hono()
+  .get("/.well-known/nodeinfo", (c) => {
     return c.json({
       links: [
         {
@@ -20,7 +18,7 @@ const dpub = (config: InitOptions) => {
     })
   })
 
-  app.get("/nodeinfo/2.1", async (c) => {
+  .get("/nodeinfo/2.1", async (c) => {
     return c.json({
       openRegistrations: false,
       protocols: [
@@ -42,7 +40,7 @@ const dpub = (config: InitOptions) => {
     })
   })
 
-  app.get("/.well-known/host-meta", (c) => {
+  .get("/.well-known/host-meta", (c) => {
     return c.text(`<?xml version="1.0"?>
       <XRD xmlns="http://docs.oasis-open.org/ns/xri/xrd-1.0">
         <Link rel="lrdd" type="application/xrd+xml" template="https://example.com/.well-known/webfinger?resource={uri}" />
@@ -51,6 +49,10 @@ const dpub = (config: InitOptions) => {
       },
     )
   })
+
+  return {
+    dpubRoute
+  }
 }
 
 export default dpub
