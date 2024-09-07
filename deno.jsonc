@@ -1,1 +1,15 @@
-{}
+{
+  "name": "@dpub/core",
+  "version": "0.0.0",
+  "exports": {
+    ".": "./src/main.ts"
+  },
+  "imports": {
+    "hono": "jsr:@hono/hono@^4.5.11"
+  },
+  "fmt": {
+    "semiColons": false,
+    "singleQuote": false,
+    "indentWidth": 2
+  }
+}

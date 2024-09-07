@@ -1,3 +1,3 @@
 # DPub
 
-Activity Pub Framework for Deno
+Activity Pub Framework for Deno and Hono
