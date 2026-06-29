@@ -15,7 +15,7 @@ jobs:
 
       - name: Deno cache (restore)
         id: cache
-        uses: actions/cache/restore@v5
+        uses: actions/cache/restore@v6
         with:
           path: |
             ~/.deno
@@ -35,7 +35,7 @@ jobs:
 
       - name: Deno cache (save)
         if: ${{ !cancelled() }}
-        uses: actions/cache/save@v5
+        uses: actions/cache/save@v6
         with:
           path: |
             ~/.deno
